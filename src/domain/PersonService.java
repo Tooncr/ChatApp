@@ -1,16 +1,19 @@
 package domain;
 
-import java.util.List;
-
 import db.PersonRepository;
 import db.PersonRepositoryStub;
+
+import java.util.List;
 
 public class PersonService {
 	private PersonRepository personRepository = new PersonRepositoryStub();
 
 	public PersonService(){
 	}
-	
+	public List<Person> getFriends(String personId){
+		return getPersonRepository().get(personId).getFriends();
+	}
+
 	public Person getPerson(String personId)  {
 		return getPersonRepository().get(personId);
 	}

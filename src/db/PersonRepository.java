@@ -1,8 +1,8 @@
 package db;
 
-import java.util.List;
-
 import domain.Person;
+
+import java.util.List;
 
 public interface PersonRepository {
 
@@ -13,6 +13,8 @@ public interface PersonRepository {
 	public abstract Person get(String userId);
 
 	public abstract List<Person> getAll();
+
+	public abstract List<Person> getFriends(String userId);
 	
 	public abstract Person getAuthenticatedUser(String email, String password);
 

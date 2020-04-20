@@ -17,14 +17,27 @@ public class Person {
 	private String firstName;
 	private String lastName;
 	private Role role;
+	private String status;
+	private List<Person> friends;
 
 	public Person(String userId, String password, String firstName,
-			String lastName,Role role) {
+			String lastName,Role role,List<Person> friends) {
 		setUserId(userId);
 		setHashedPassword(password);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setRole(role);
+		setFriends(friends);
+		setStatus("online");
+	}
+	public Person(String userId, String password, String firstName,
+				  String lastName,Role role) {
+		setUserId(userId);
+		setHashedPassword(password);
+		setFirstName(firstName);
+		setLastName(lastName);
+		setRole(role);
+		setStatus("online");
 	}
 
 	public Person(String userId, String password, String salt,
@@ -35,6 +48,7 @@ public class Person {
 		setFirstName(firstName);
 		setLastName(lastName);
 		setRole(role);
+		setStatus("online");
 	}
 
 	public Person() {
@@ -44,10 +58,21 @@ public class Person {
 		return this.role;
 	}
 
+	public void setStatus(String status){
+		this.status = status;
+	}
+
+	public String getStatus(){
+		return status;
+	}
+
 	public void setRole(Role role) {
 		this.role=role;
 	}
-	
+
+	public void setFriends(List<Person> friends) {
+		this.friends = friends;
+	}
 
 	public void setUserId(String userId) {
 		if (userId.isEmpty()) {
@@ -147,6 +172,17 @@ public class Person {
 			throw new IllegalArgumentException("No last name given");
 		}
 		this.lastName = lastName;
+	}
+
+	public List<Person> getFriends() {
+		return friends;
+	}
+
+	public void addFriend(Person p){
+		if(p != null){
+			friends.add(p);
+		}
+
 	}
 
 }

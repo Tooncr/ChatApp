@@ -1,14 +1,13 @@
 package controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import domain.Person;
+import domain.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import domain.Person;
-import domain.PersonService;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LogIn extends RequestHandler {
 
@@ -33,6 +32,7 @@ public class LogIn extends RequestHandler {
 			Person person = personService.getAuthenticatedUser(email, password);
 			if (person != null) {
 				createSession(person, request, response);
+				destination = "chatPagina.jsp";
 			} else {
 				errors.add("No valid email/password");
 			}
