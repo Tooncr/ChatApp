@@ -13,7 +13,7 @@
     <jsp:param name="title" value="ChatPagina" />
 </jsp:include>
 
-<body>
+<body id="body">
 <jsp:include page="header.jsp">
     <jsp:param name="title" value="ChatPagina" />
 </jsp:include>
@@ -21,9 +21,22 @@
 <h1>CHAT</h1>
 <div id="status"></div>
 
+<div id="friends"></div>
+<table id="table">
+    <tr>
+        <th>Name</th>
+        <th>Status</th>
+    </tr>
+
+</table>
 <div>
     <label>Status</label><input type="text" id="statustext"/>
     <input type="button" value="Change Status" id="statusbutton" >
+</div>
+
+<div>
+    <label for="friendtext">email</label><input type="text" id="friendtext"/>
+    <input type="button" value="Add friend" id="friendbutton" >
 </div>
 
 

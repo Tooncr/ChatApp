@@ -1,52 +1,81 @@
-console.log("loads");
-window.onload = setStatus;
 
+window.onload = setStatus;
+setInterval(getFriends, 2000);
 var statusbutton= document.getElementById('statusbutton');
 statusbutton.onclick = addStatus;
+var friendbutton= document.getElementById('friendbutton');
+friendbutton.onclick = addFriend;
 
 var getStatus = new XMLHttpRequest();
 var NewStatus = new XMLHttpRequest();
 
+
+
 function addStatus() {
         var statusText = document.getElementById("statustext").value;
+        console.log(statusText);
         var information = "status= " + encodeURIComponent(statusText);
+        console.log(information);
 
         NewStatus.open("POST", "ManageStatusServlet", true);
         NewStatus.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         NewStatus.send(information);
-
-        document.getElementById("statustext").value = '';
+        NewStatus.onreadystatechange = getData;
 }
 
-function setStatusOnline(){
-    NewStatus.open("GET", "ManageStatusServlet?status=online",true);
-    NewStatus.onreadystatechange = setStatus;
+function addFriend() {
+    var friendText = document.getElementById("friendtext").value;
+    console.log(friendText);
+    var information = "name=" + friendText;
+    console.log(information);
+
+    NewStatus.open("POST", "ManageFriendsServlet", true);
+    NewStatus.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    NewStatus.send(information);
+}
+
+function setStatus(){
+    NewStatus.open("GET", "ManageStatusServlet",true);
+    NewStatus.onreadystatechange = getData;
     NewStatus.send(null);
 }
 
-function setStatusOffline() {
-    NewStatus.open("GET", "ManageStatusServlet?status=offline",true);
-    NewStatus.onreadystatechange = setStatus;
+function getFriends(){
+    NewStatus.open("GET", "ManageFriendsServlet", true);
+    NewStatus.onreadystatechange = getFriendData;
     NewStatus.send(null);
 }
 
-function setStatusAway() {
-    NewStatus.open("GET", "ManageStatusServlet?status=away",true);
-    NewStatus.onreadystatechange = setStatus;
-    NewStatus.send(null);
-}
-
-function setStatusCustom() {
-    NewStatus.open("GET", "ManageStatusServlet?status=custom",true);
-    NewStatus.onreadystatechange = setStatus;
-    NewStatus.send(null);
-}
-
-function setStatus() {
+function getFriendData() {
     if(NewStatus.readyState === 4){
-        console.log("test");
         if(NewStatus.status === 200){
-            console.log("ok");
+            var serverResponse = JSON.parse(NewStatus.responseText);
+            var friendstable = document.getElementById("table");
+            while(friendstable.childNodes.length>2){
+                friendstable.removeChild(friendstable.lastChild);
+            }
+            for(i in serverResponse.friends){
+                var friendRow = document.createElement('tr');
+                var naam = serverResponse.friends[i];
+                var status = serverResponse.status[i];
+                var naamCol = document.createElement('td');
+                var statusCol = document.createElement('td');
+                var naamText = document.createTextNode(naam);
+                var statusText= document.createTextNode(status);
+                naamCol.appendChild(naamText);
+                statusCol.appendChild(statusText)
+                friendRow.appendChild(naamCol);
+                friendRow.appendChild(statusCol);
+                friendstable.appendChild(friendRow);
+            }
+
+        }
+    }
+}
+
+function getData() {
+    if(NewStatus.readyState === 4){
+        if(NewStatus.status === 200){
             var serverResponse = JSON.parse(NewStatus.responseText);
             console.log(serverResponse);
             var statusXML = serverResponse.status;
