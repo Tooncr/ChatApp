@@ -62,6 +62,12 @@ public class ManageFriendsServlet extends HttpServlet {
         }
         json.delete(json.length()-2,json.length());
         json.append("], \n");
+        json.append("\"id\" :[ \"");
+        for(Person person : friend){
+            json.append(person.getUserId()+ "\",\"");
+        }
+        json.delete(json.length()-2,json.length());
+        json.append("], \n");
         json.append(" \"status\" :[ \"");
         for(Person person : friend){
             json.append(person.getStatus()+ "\",\"");

@@ -26,6 +26,7 @@
     <tr>
         <th>Name</th>
         <th>Status</th>
+        <th>Chat</th>
     </tr>
 
 </table>
@@ -39,9 +40,15 @@
     <input type="button" value="Add friend" id="friendbutton" >
 </div>
 
+<div id="chats">
+
+</div>
+
 
 
 <script type="text/javascript" src="js/status.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/chat.js"></script>
 
 <jsp:include page="footer.jsp">
     <jsp:param name="title" value="Home" />

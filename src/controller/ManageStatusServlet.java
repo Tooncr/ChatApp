@@ -23,6 +23,7 @@ public class ManageStatusServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
         Person p = (Person)request.getSession().getAttribute("user");
+
         String statusUser =  p.getStatus();
         String statusJSON = this.toJSON(statusUser);
 
