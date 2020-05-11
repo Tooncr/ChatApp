@@ -30,6 +30,7 @@ public class FriendStatusServlet extends HttpServlet {
             if(per.getUserId().equals(id)){
                 response.getWriter().write(per.getStatus());
             }
+
         }
     }
 
