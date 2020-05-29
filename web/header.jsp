@@ -9,6 +9,8 @@
 <c:when test="${param.title=='Home'}">
     <li  id="actual"><a href="Controller">Home</a></li>
     <li><a href="Controller?action=ChatPagina">Chatpagina</a></li>
+    <li><a href="Controller?action=Register">Register</a></li>
+
 </c:when>
 <c:otherwise>
 <li><a href="Controller">Home</a></li>
